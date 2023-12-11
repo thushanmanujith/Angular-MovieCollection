@@ -1,0 +1,19 @@
+<div>
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-control-search">
+            <input type="text" name="movieTitle" [(ngModel)]="movieTitle" id="movieTitle" placeholder="Search by movie name" />
+            <input type="submit" value="Search Movie" class="btn btn-block" />
+        </div>
+    </form>
+</div>
+<div class="movie-collection-wrapper">
+    <h3 *ngIf="movies.length">Movie Collection</h3>
+        <div class="to-watch">
+            <app-movie-tile
+                *ngFor="let movie of movies"
+                [ThumbnailUrl]="movie.ThumbnailUrl"
+                [id]="movie.id"
+                [Description]="movie.Description"
+            ></app-movie-tile>
+        </div>
+</div>
