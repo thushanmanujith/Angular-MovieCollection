@@ -1,7 +1,8 @@
 export interface Movies {
-    id: number;
-    title: string;
+    Id: number;
+    Title: string;
     ThumbnailUrl: string;
     Description: string;
+    Language: string;
 }
 

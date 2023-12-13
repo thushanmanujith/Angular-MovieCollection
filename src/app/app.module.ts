@@ -8,10 +8,12 @@ import { ToolBarComponent } from './components/tool-bar/tool-bar.component';
 import { ButtonComponent } from './components/button/button.component';
 import { MovieTileComponent } from './components/movie-tile/movie-tile.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AddMovieComponent } from './components/add-movie/add-movie.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
+import { OAuthtInterceptor } from './interceptors/oauth-request-interceptor';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +32,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
     FontAwesomeModule,
     FormsModule,
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: OAuthtInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

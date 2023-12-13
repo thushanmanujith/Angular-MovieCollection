@@ -16,7 +16,6 @@ export class ToolBarComponent implements OnInit {
   }
 
   changeRoute(route: string): void {
-    debugger
     this.pageTitle = route;
     const pathToGo = route === 'SignIn' ? '/' : route;
     this.router.navigate([pathToGo]);

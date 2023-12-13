@@ -6,12 +6,25 @@
         </div>
         <div class="form-control">
             <label for="image">Thumbnail Url</label>
-            <input type="text" name="image" [(ngModel)]="image" id="image" placeholder="Add Image url" />
+            <input type="text" name="thumbnailUrl" [(ngModel)]="thumbnailUrl" id="thumbnailUrl" placeholder="Add Image url" />
         </div>
         <div class="form-control">
             <label for="image">Description</label>
             <input type="text" name="description" [(ngModel)]="description" id="description" placeholder="Add description" />
         </div>
+        <div class="form-control">
+            <label for="image">Language</label>
+            <input type="text" name="language" [(ngModel)]="language" id="language" placeholder="Add Language" />
+        </div>
         <input type="submit" value="Add Movie" class="btn btn-block" />
+        <div class="form-group">
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="isAddMovieFailed"
+            >
+              Add movie: {{ message }}
+            </div>
+          </div>
     </form>
 </div>

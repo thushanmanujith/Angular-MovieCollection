@@ -10,10 +10,13 @@ import { uuid } from 'uuidv4';
 })
 export class AddMovieComponent implements OnInit {
   movieTitle: string = '';
-  image: string = '';
+  thumbnailUrl: string = '';
   description: string = '';
+  language: string = '';
   isWatched: boolean = false;
   isFav: boolean = false;
+  message: string = '';
+  isAddMovieFailed: boolean = false;
 
   constructor(
     private moviesService: MoviesService,
@@ -24,14 +27,27 @@ export class AddMovieComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.movieTitle && this.image) {
+    if (this.movieTitle && this.thumbnailUrl) {
       const newMovie: Movies = {
         Description: this.description,
-        ThumbnailUrl: this.image,
-        title: this.movieTitle,
-        id: Math.round(Math.random() * 100000),
+        ThumbnailUrl: this.thumbnailUrl,
+        Title: this.movieTitle,
+        Id: Math.round(Math.random() * 100000),
+        Language: this.language
       }
-      this.moviesService.addMovie(newMovie).subscribe((movie) => this.router.navigate(['/']));
+      this.moviesService.addMovie(newMovie).subscribe(
+        (movie) => {
+          this.message = "Success"
+        },
+        err =>
+        {
+          if (err.status === 403) {
+            this.message = "failed: You no longer have permission"
+          } else {
+            this.message = err.message;
+          }
+          this.isAddMovieFailed = true;
+        });
     }
   }
 }

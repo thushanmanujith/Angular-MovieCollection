@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Collection } from 'src/app/models/collection';
 import { Movies } from 'src/app/models/movies';
+import { AuthService } from 'src/app/services/auth.service';
 import { MoviesService } from 'src/app/services/movies.service';
+import { TokenStorageService } from 'src/app/services/token-storage.service';
 import testData  from 'src/db.json';
 
 
@@ -11,65 +13,48 @@ import testData  from 'src/db.json';
   styleUrls: ['./movie-collection.component.scss']
 })
 export class MovieCollectionComponent implements OnInit {
-  collection: Collection | undefined;
-  movies: Movies[] = [];
+  public collection: any;
+  movies: any;
   yetToWatchMovies: Movies[] = [];
   watchedMovies: Movies[] = [];
   movieTitle: string = '';
 
-  constructor(private moviesService: MoviesService) { }
+  constructor(private moviesService: MoviesService,
+    private authService: AuthService,
+    private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
-    debugger
-    this.moviesService.getMovies().subscribe(() => this.collection);
-    this.movies = testData.movies;
+    this.moviesService.getMovieCollection().subscribe(data => 
+      {
+        this.collection = data;
+        this.movies = this.collection.movies;
+        console.log(this.movies);
+      });
+    //this.movies = testData.movies;
+    this.getUser();
   }
 
   ngDoCheck(): void {
-    if (this.movies.length) {
-      this.movies = testData.movies;
-    }
+    // if (this.movies.length) {
+    //   this.movies = testData.movies;
+    // }
   }
 
-  onFavClick(movie: Movies): void {
-    // this.moviesService.updateMovie({ ...movie, isFav: !movie.isFav, isWatched: movie.isFav ? true : movie.isWatched }).subscribe((updatedMovie) => {
-    //   if (updatedMovie.isWatched) {
-    //     const alreadyWatched = this.watchedMovies.find(movie => movie.id === updatedMovie.id);
-    //     if (alreadyWatched) {
-    //       alreadyWatched.isFav = updatedMovie.isFav
-    //       this.watchedMovies = this.watchedMovies.map((m) => {
-    //         if (m.id === updatedMovie.id) {
-    //           return updatedMovie;
-    //         }
-    //         return m;
-    //       })
-    //     } else {
-    //       this.watchedMovies.push(updatedMovie);
-    //     }
-    //     this.yetToWatchMovies = this.yetToWatchMovies.filter((m) => m.id !== updatedMovie.id);
-    //   }
-    //   else {
-    //     this.watchedMovies = this.watchedMovies.filter((m) => m.id !== updatedMovie.id);
-    //     this.yetToWatchMovies.push(updatedMovie);
-    //   }
-    // });
+  getUser(): void {
+    this.authService.GetUser().subscribe(
+      userData => {
+        this.tokenStorage.saveUser(userData);
+      }, err => {
+      }
+    );
   }
 
-  onWatchedClick(movie: Movies): void {
-    // const payloadMovie = { ...movie, isWatched: !movie.isWatched };
-    // payloadMovie.isFav = payloadMovie.isWatched ? payloadMovie.isFav : false;
-    // this.moviesService.updateMovie(payloadMovie).subscribe((updatedMovie) => {
-    //   if (updatedMovie.isWatched) {
-    //     this.watchedMovies.push(updatedMovie);
-    //     this.yetToWatchMovies = this.yetToWatchMovies.filter((m) => m.id !== updatedMovie.id)
-    //   } else {
-    //     this.watchedMovies = this.watchedMovies.filter((m) => m.id !== updatedMovie.id);
-    //     this.yetToWatchMovies.push(updatedMovie);
-    //   }
-    // });
-  }
-
-  onSubmit(): void {
+  onSearch(): void {
+    this.moviesService.searchMovies(this.movieTitle, this.collection.id).subscribe(data => 
+      {
+        this.movies = data;
+        console.log(this.movies);
+      });
   }
 
 }
