@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Movies } from 'src/app/models/movies';
-import { MoviesService } from 'src/app/services/movies.service';
+import { Movies } from 'src/app/core/models/movies';
+import { MoviesService } from 'src/app/core/services/movies.service';
 import { uuid } from 'uuidv4';
 @Component({
   selector: 'app-add-movie',

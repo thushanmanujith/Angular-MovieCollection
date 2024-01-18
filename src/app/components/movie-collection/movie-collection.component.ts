@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Collection } from 'src/app/models/collection';
-import { Movies } from 'src/app/models/movies';
-import { AuthService } from 'src/app/services/auth.service';
-import { MoviesService } from 'src/app/services/movies.service';
-import { TokenStorageService } from 'src/app/services/token-storage.service';
+import { Collection } from 'src/app/core/models/collection';
+import { Movies } from 'src/app/core/models/movies';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { MoviesService } from 'src/app/core/services/movies.service';
+import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 import testData  from 'src/db.json';
 
 

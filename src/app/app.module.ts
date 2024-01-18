@@ -11,8 +11,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AddMovieComponent } from './components/add-movie/add-movie.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
-import { OAuthtInterceptor } from './interceptors/oauth-request-interceptor';
+import { SignInComponent } from './components/account/sign-in/sign-in.component';
+import { OAuthtInterceptor } from './core/interceptors/oauth-request-interceptor';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -22,8 +23,7 @@ import { OAuthtInterceptor } from './interceptors/oauth-request-interceptor';
     ToolBarComponent,
     ButtonComponent,
     MovieTileComponent,
-    AddMovieComponent,
-    SignInComponent
+    AddMovieComponent
   ],
   imports: [
     BrowserModule,
