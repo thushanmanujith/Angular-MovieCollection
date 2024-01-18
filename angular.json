@@ -107,5 +107,7 @@
       }
     }
   },
-  "defaultProject": "movie-watch-list"
+  "cli": {
+    "analytics": false
+  }
 }
