@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AppSettings } from './appsettings.service';
 import { TokenStorageService } from './token-storage.service';
 import { OAuthToken } from '../interceptors/oauth-token';
+import * as moment from 'moment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -18,16 +19,25 @@ const USER_KEY = 'auth-user';
 export class AuthService {
   AUTH_API: string;
 
-  private _oAuthToken!: OAuthToken;
+  public redirectURL!: string;
 
-  public get oAuthToken(): OAuthToken {
-      if (!this._oAuthToken) {
-          var valuesFromStorage: any = {};
-          try { valuesFromStorage = JSON.parse(localStorage.getItem(TOKEN_KEY) || '{}', OAuthToken.JSONParseReviver); }
-          catch (error) { console.log('Skipping error. Token data in storage is either corrupted/depreciated ...', error); }
-          this._oAuthToken = Object.assign(new OAuthToken(), valuesFromStorage);
-      }
-      return this._oAuthToken;
+  public get isOAuthTokenValid(): boolean {
+      const tokenPayload = this.getTokenFromStorage();
+      const isValid = !!tokenPayload.exp && (Date.now() < tokenPayload.exp * 1000);
+      return isValid;
+  }
+
+  public getTokenFromStorage() {
+    const token = sessionStorage.getItem(TOKEN_KEY);
+    let payload;
+    if (token) {
+      payload = token.split(".")[1];
+      payload = window.atob(payload);
+      console.log(JSON.parse(payload))
+      return JSON.parse(payload);
+    } else {
+      return null;
+    }
   }
 
   constructor(private http: HttpClient,
