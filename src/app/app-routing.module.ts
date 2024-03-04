@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddMovieComponent } from './components/add-movie/add-movie.component';
-import { MovieCollectionComponent } from './components/movie-collection/movie-collection.component';
+import { AddMovieComponent } from './components/movie/add-movie/add-movie.component';
+import { MovieCollectionComponent } from './components/movie/movie-collection/movie-collection.component';
 import { SignInComponent } from './components/account/sign-in/sign-in.component';
 import { AccountModule } from './components/account/account.module';
 import { AuthenticatedGuard } from './core/route-guards/authenticated.guard';

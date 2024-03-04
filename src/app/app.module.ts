@@ -3,14 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MovieCollectionComponent } from './components/movie-collection/movie-collection.component'
+import { MovieCollectionComponent } from './components/movie/movie-collection/movie-collection.component'
 import { ToolBarComponent } from './components/tool-bar/tool-bar.component';
 import { ButtonComponent } from './components/button/button.component';
-import { MovieTileComponent } from './components/movie-tile/movie-tile.component';
+import { MovieTileComponent } from './components/movie/movie-tile/movie-tile.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { AddMovieComponent } from './components/add-movie/add-movie.component';
+import { AddMovieComponent } from './components/movie/add-movie/add-movie.component';
 import { OAuthtInterceptor } from './core/interceptors/oauth-request-interceptor';
 
 
